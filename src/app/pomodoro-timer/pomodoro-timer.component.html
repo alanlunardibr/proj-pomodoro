@@ -1,0 +1,18 @@
+<mat-card>
+  <mat-card-title>Pomodoro Timer</mat-card-title>
+  <mat-card-content>
+    <mat-form-field appearance="fill">
+      <mat-label>Definir Minutos</mat-label>
+      <input matInput [(ngModel)]="minutes" type="number" min="1" max="60">
+    </mat-form-field>
+
+    <div class="buttons">
+      <button mat-raised-button color="primary" (click)="startTimer()">Iniciar</button>
+      <button mat-raised-button color="warn" (click)="resetTimer()">Fechar</button>
+    </div>
+
+    <div *ngIf="remainingTime > 0">
+      <h2>{{ displayMinutes }}:{{ secondsRemaining < 10 ? '0' + secondsRemaining : secondsRemaining }} minutos restantes</h2>
+    </div>
+  </mat-card-content>
+</mat-card>
