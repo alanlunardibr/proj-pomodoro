@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-pomodoro-timer',
@@ -10,8 +11,19 @@ export class PomodoroTimerComponent {
   remainingTime: number = 0;
   secondsRemaining: number = 0;
   timerInterval: any;
+  pomodoroForm: FormGroup;
+
+  constructor(private fb: FormBuilder) {
+    this.pomodoroForm = this.fb.group({
+      minutes: ['', [Validators.required, Validators.min(1), Validators.max(60)]]
+    });
+  }
 
   startTimer() {
+    if (this.pomodoroForm.invalid) {
+      alert('O valor deve ser entre 1 e 60 minutos.');
+      return;
+    }
     this.remainingTime = this.minutes * 60; // Convertendo minutos para segundos
     this.timerInterval = setInterval(() => {
       if (this.remainingTime > 0) {
